@@ -1,20 +1,6 @@
-from cmath import exp
-import os
-import sys
 import pytest
 import requests
 import json
-
-
-
-print(os.name)
-
-# def func(x):
-#     return x + 1
-# def test_answer():
-#     assert func(4) == 5
-# test_answer()
-
 
 test_Api_URI = "https://pokeapi.co/api/v2/type"
 Pokemon_Cnt = 20
@@ -70,19 +56,20 @@ assert poke_absent_val == True , f"Pokemon '{poke_absent}' should NOT BE present
 # Identify 5 heaviest Pokemons of type Fire and verify weights.
 # ---------
 dict_Fire_HeavyWeight = {"charizard-gmax": 10000, 
-                    "cinderace-gmax": 10000,
-                    "coalossal-gmax": 10000,
-                    "centiskorch-gmax": 10000,
-                    "groudon-primal": 9997}
+                        "cinderace-gmax": 10000,
+                        "coalossal-gmax": 10000,
+                        "centiskorch-gmax": 10000,
+                        "groudon-primal": 9997}
 
 # iterate over the 5 heavyweights and search for them in the main results
 for poke_name in dict_Fire_HeavyWeight.keys():
     print(f"Pokemon name in dictionary is: '{poke_name}'")
     poke_weight = dict_Fire_HeavyWeight[poke_name]
     print(f"Pokemon weight in dictionary is: '{poke_weight}'")
-    # search each heavyweight in the Json and verify it's weight through it's relevant url
+    
+    # search each heavyweight Pokemon, in the Json and verify it's weight through it's **relevant url**
     for json_poke_name in resp_json_fireType['pokemon']:
-        print(f"'json_poke_name' is : {json_poke_name}")
+        print(f"'json_poke_name' is : {json_poke_name}") # for debugging
         # if this pokemon is the one from the dictionary then continue checking it's weight
         if json_poke_name['pokemon']['name'] == poke_name:
             print(f"Pokemon's name is : {json_poke_name['pokemon']['name']}")
@@ -99,11 +86,4 @@ for poke_name in dict_Fire_HeavyWeight.keys():
             current_weight = resp_json_heavyweight['weight']
             print(f"Pokemon: {json_poke_name['pokemon']['name']} weight is: {str(current_weight)}")
             assert resp_json_heavyweight['weight'] == poke_weight, f"Weight mismatch!! Pokemon '{poke_name} expected weight is: {poke_weight}. Instead found weight of: {resp_json_heavyweight['weight']} !"
-      
-    pass
-
-
-
-
-
 
